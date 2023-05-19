@@ -1,0 +1,531 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+We fix a base field $k$ of characteristic zero 
+and a smooth projective curve $X$ over $k$.
+At some point, this will break can we need to use $k = \bC$.
+I now describe some foundational constructions
+which is needed to dscribe the Galois and automorphic side of
+categorical geometric Langlands. 
+
+\textbf{Idea 1 : Functor of points}
+
+Define the category of affine schemes $\AFF_k$ as 
+the opposite of the category of (commutative) $k$-algebras.
+For each $k$-algebra $A$, 
+we use $\SPEC A$ to denote the corresponding object in $\AFF_k$.
+The arrows are reversed because philosophically,
+we are viewing each $A$ as the ring of functions on $\SPEC A$.
+
+\begin{dfn}
+
+  The category of \emph{presheaves over $k$} 
+  is defined as
+  \[
+    \PSH_k := \FUN(\AFF_k , \SET^\OP)
+  \]
+  We denote the Yoneda embedding with $\SPEC$
+  so that given a $k$-algebra, $\SPEC A \in \PSH_k$.
+  We refer to $A$ as the ring of functions of $\SPEC A$.
+\end{dfn}
+
+The idea behind this definition is that
+every ``space'' in algebraic geometry should be determined by
+how affine schemes map into them.
+For example, the affine line $\bA^1$ is defined as the 
+forgetful functor $\AFF_k \to \SET^\OP$,
+sending each affine scheme $\SPEC A$ to its ring of functions $A$.
+
+The category $\PSH_k$ is nice in the sense that
+it shares many categorical properties with $\SET$
+so that any construction you can think of in $\SET$ can be done in $\PSH_k$.
+As an example, we introduce the formal disk.
+
+Intuitively, the formal disk in $\bA^1$ around $0$
+is the space of points in $\bA^1$ infinitesimally close to $0$.
+Although the idea of ``infinitesimally close'' is
+ill-defined in analysis, the notion of nilpotence works 
+for algebraic geometry.
+We first define the quotient of $\bA^1$ by 
+the relation of two points being infinitesimally close.
+
+\begin{dfn}[de Rham space]
+
+  The \emph{de Rham space of $\bA^1$} is defined as the presheaf
+  such that for any affine scheme $\SPEC A$,
+  \[
+    \bA^1_\DR(A) := \bA^1(A_\RED)
+  \]
+
+\end{dfn}
+
+For any affine $S$, we have a closed embedding $S_\RED \to S$.
+Restricting along this embedding turns points $S \to \bA^1$
+into points $S \to \bA^1_\DR$.
+This defines a projection 
+\[
+  \pi : \bA^1 \to \bA^1_\DR
+\]
+Here's an example of two points which get identified under this projection.
+Consider $t, -t \in k[t]/(t^2) = \bA^1(k[t]/(t^2))$,
+which represents two tangent vectors at $0$.
+Then $\pi(t) = 0 = \pi(-t) \in \bA^1((k[t]/(t^2))_\RED)$.
+This makes sense because the geometric intuition is that
+tangent vectors are in the first order neighbourhood of $0$.
+We now define the formal disk.
+
+\begin{dfn}
+
+  The \emph{formal disk} is defined 
+  by the pullback diagram : 
+  \begin{cd}
+    {\bA^1} & {D^\wedge} \\
+    {\bA^1_\DR} & {\SPEC k}
+    \arrow["\pi"', from=1-1, to=2-1]
+    \arrow["0", from=2-2, to=2-1]
+    \arrow[from=1-2, to=1-1]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+  \end{cd}
+
+\end{dfn}
+
+Fiber products in $\PSH_k$ are very concrete.
+Simply take fiber products ``pointwise''.
+This means that for each affine $A$,
+we have the pullback square : 
+\begin{cd}
+  {\bA^1(A)} & {D^\wedge(A)} \\
+  {\bA^1_\DR(A)} & {(\SPEC k)(A)}
+  \arrow["\pi"', from=1-1, to=2-1]
+  \arrow["0", from=2-2, to=2-1]
+  \arrow[from=1-2, to=1-1]
+  \arrow[from=1-2, to=2-2]
+  \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+\end{cd}
+This is easily computed : 
+a map $f : \SPEC A \to \bA^1$ is exactly a function $f \in A$
+and $(\SPEC k)(A)$ is singleton so we are looking at exactly
+$f \in A$ which become zero in $(\bA^1_\DR)(A) = A_\RED$.
+In other words, $D^{\wedge}(A) = N_A$ the nilradial of $A$.
+
+Here is another definition of $D^\wedge$ which shows how nice $\PSH_k$ is.
+We have a sequence of close embeddings into $\bA^1$ : 
+\begin{cd}
+  {\SPEC k[t]/(t)} & \cdots & {\SPEC k[t]/(t^{n+1})} & \cdots & {\bA^1}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{cd}
+In $\PSH_k$ we can take the ``union'' i.e. 
+colimit $\SPF k\bbrkt{t} := \COLIM_{n} \SPEC k[t]/(t^{n+1})$
+of this system of closed embeddings.
+What does this look like? 
+Again, we do colimits ``pointwise'',
+that is to say, 
+for each affine $\SPEC A$,
+the above corresponds to subset of $A$
+\begin{cd}
+  {\set{f \in A \st f = 0}} & \cdots & {\set{f \in A \st f^{n+1} = 0}} & \cdots & A
+	\arrow["\subseteq", from=1-1, to=1-2]
+	\arrow["\subseteq", from=1-2, to=1-3]
+	\arrow["\subseteq", from=1-3, to=1-4]
+	\arrow["\subseteq", from=1-4, to=1-5]
+\end{cd}
+We simply take the colimit, which is just the union.
+We've recovered $D^\wedge(A)$!
+What we've just shown is the following isomorphism in $\PSH_k$ : 
+\[
+  \SPF k\bbrkt{t} \simeq D^\wedge
+\]
+
+\textbf{Idea 2 : Quasi-coherent sheaves on presheaves}
+
+We will need to talk about sheaves on spaces more general than schemes
+so let me just say a few words about quasi-coherent sheaves.
+
+There is actually a sensible definition of
+quasi-coherent sheaves on \emph{any} presheaf.
+(For talk, I won't bore you with the technical definition and
+refer to the notes here.)
+\begin{dfn}
+  
+  Let $X \in \PSH_k$.
+  A quasi-coherent sheaf $\cF$ on $X$ consists of the following data : 
+  \begin{itemize}
+    \item for each $x : \SPEC A \to X$, an $A$-module $\cF_x$.
+    This is called the fiber of $\cF$ at $x$.
+    \item for each $f$ below on the left we have a $f^*$ :
+    \begin{cd}
+      {\SPEC B} & X & \rightsquigarrow & {\cF_y} & {\cF_x} \\
+      {\SPEC A} &&& {\text{}} & {\text{}}
+      \arrow["x"', from=2-1, to=1-2]
+      \arrow["y", from=1-1, to=1-2]
+      \arrow["f"', from=1-1, to=2-1]
+      \arrow["{f^*}"', from=1-5, to=1-4]
+      \arrow["{\text{in $A\MOD$}}"{description}, draw=none, from=2-4, to=2-5]
+    \end{cd}
+    Furthermore,
+    we have \emph{quasi-coherence},
+    meaning $f^* : \cF_x \to \cF_y$ induces $\cF_x \otimes_A B \simeq \cF_y$.
+    \item for each $f, g$ below on the left we have 
+    \begin{cd}
+      {\SPEC C} &&& {\cF_z} \\
+      {\SPEC B} & X & {\rightsquigarrow} && {\cF_y} \\
+      {\SPEC A} &&& {\cF_x} & {\text{}}
+      \arrow["x"', from=3-1, to=2-2]
+      \arrow["y", from=2-1, to=2-2]
+      \arrow["z", from=1-1, to=2-2]
+      \arrow["f"', from=2-1, to=3-1]
+      \arrow["g"', from=1-1, to=2-1]
+      \arrow["{(fg)^*}"{description}, from=3-4, to=1-4]
+      \arrow["{f^*}"', from=3-4, to=2-5]
+      \arrow["{g^*}"', from=2-5, to=1-4]
+    \end{cd}
+  \end{itemize}
+  Morphisms of quasi-coherent sheaves are defined fiberwise.
+  The collection of quasi-coherent sheaves on $X$ naturally forms
+  an abelian category $\QCOH X$.
+\end{dfn}
+The above definition is sensible in the sense that :
+\begin{enumerate}
+  \item $\QCOH(\SPEC A) \simeq A\MOD$ for any affine $\SPEC A$.
+  \item for a morphism $f : X \to Y$ of presheaves,
+  one can construct a functor $f^* : \QCOH Y \to \QCOH X$
+  \item For $X$ a scheme and $\cU = \coprod_{i \in I} U_i$
+  a Zariski cover by affine opens,
+  pulling back along $j : \cU \to X$ gives an equivalence 
+  \[
+    \QCOH X \map{j^*}{\sim} \QCOH^*(X , \cU)
+  \]
+  where the latter is
+  descent data of modules for the cover $\cU$.
+  This recovers the usual definition of quasi-coherent sheaves
+  on a scheme.
+\end{enumerate}
+
+\textbf{Idea 3 : de Rham space}
+
+We've seen the de Rham space construction
+when we defined the formal disk.
+I need to explain the de Rham space a bit more
+because this is how we're gonna get both local systems and $D$-modules.
+
+One can see that the de Rham space construction
+applies to all presheaves.
+The general definition is identical.
+This in particular applies to our smooth projective curve $X$.
+Recall I said for motivation that 
+$X_\DR$ looks like $X$ where one identifies all infinitesimally close points.
+Making an analogy to sets,
+whenever we have an equivalence relation $R \rightrightarrows X$,
+we can form the quotient $X \to X / R$ and recover the equivalence relation
+as $R \simeq X \times_{X / R} X$.
+Again, by the amazing categorical properties of $\PSH_k$,
+we can play this game with the projection $\pi : X \to X_\DR$.
+We make the following definition. 
+
+\begin{dfn}[Infinitesimal Groupoid of $X$]
+  
+  The \emph{infinitesimal groupoid of $X$} is defined by
+  the fiber product diagram : 
+  \begin{cd}
+    {\widehat{\De}} & X \\
+    X & {X_{\DR}}
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{cd}
+\end{dfn}
+One can then show the following : 
+\begin{enumerate}
+  \item by a similar argument to how we showed $D^\wedge \simeq \SPF k\bbrkt{t}$,
+  one can show that the union of the $n$-order neighbourhoods of 
+  the diagonal of $X$ recovers the infinitesimal groupoid.\[
+    \COLIM_{n} \De^{(n)} \simeq \widehat{\De}
+  \]
+  \item We have a coequalizer diagram in $\PSH_k$\[
+    \widehat{\De} \rightrightarrows X \to X_\DR
+  \]
+  This affirms our intuition that $X_\DR$ is $X$
+  with infinitesimally close points identified.
+  \footnote{
+    This actually uses formal smoothness of $X$.
+  }
+  \item Quasi-coherent sheaves on $X_\DR$ are the same as
+  quasi-coherent sheaves on $X$ which ``respect the equivalence relation
+  $\widehat{\De}$'' in the sense that
+  such $\cF \in \QCOH X$ are equipped with
+  isomorphisms $\tau_{x,y} : \cF_x \simeq \cF_y$
+  for any pair $(x,y)$ of infinitesimally close points
+  and that these isomorphisms needs to be
+  ``reflexive and transitive''.
+  The formal way of saying this is quasi-coherent sheaves on $X$
+  equipped with descent data w.r.t. the groupoid $\widehat{\De}$.
+  
+  In fact, one can show that descent data w.r.t. $\widehat{\De}$ on
+  a quasi-coherent sheaf $\cF$ on $X$
+  is equivalent to giving a flat connection 
+  $\De : \cF \to \cF \otimes_{\cO_X} \Om^1_{X/k}$.
+  In particular, this gives the definition 
+  \begin{dfn}[D-modules on a presheaf]
+    
+    Let $X$ be a presheaf.
+    Then the category of $D$-modules on $X$ is defined as
+    \[
+      D\MOD(X) := \QCOH(X_\DR)
+    \]
+  \end{dfn}
+  \item More generally than quasi-coherent sheaves,
+  via pullback along $\pi : X \to X_\DR$,
+  the category of presheaves over $X_\DR$ is equivalent to
+  the category of presheaves over $X$ 
+  which ``respect the equivalence relation $\widehat{\De}$''.
+  \footnote{
+    Again, the formal way of saying this is 
+    ``equipped with descent data w.r.t the groupoid $\widehat{\De}$''.
+  }
+\end{enumerate}
+
+Points (3) and (4) combined say that
+objects living over $X_\DR$ should be thought of as
+objects on $X$ equipped with a connection.
+In particular, a quasi-coherent sheaf $\cF$ on $X_\DR$
+whose underlying quasi-coherent sheaf on $X$ is a 
+vector bundle of rank $n$ should be thought of as a $n$-dimensional 
+representation of the fundamental group of $X$.
+This is literally true when $k = \bC$ via the equivalence
+between 
+\begin{enumerate}
+  \item Vector bundles on $X$ equipped with a flat connection.
+  This gives an isomorphism of fibers when points are
+  ``infinitesimally close''.
+  \item Locally constant sheaves on $X$ valued in 
+  (finite dimensional) $\bC$-vector spaces.
+  This gives isomorphism of fibers when points are related by
+  being in a common open that is small enough.
+  \item Functors from the fundamental groupoid of $X$ into 
+  the category of (finite dimensional) vector spaces over $\bC$.
+  This gives isomorphism of fibers when points are related by
+  a path-up-to-homotopy.
+\end{enumerate}
+
+For the Galois side of geometric Langlands,
+we will want group morphisms $\pi_1(X , x) \to G^L$ where
+$G^L$ is the Langlands dual of a reductive group $G$ over $k$.
+The above analogies then suggest that
+the correct formulation of the Galois side is 
+\emph{$G^L$ bundles on $X$ equipped with a connection}.
+\footnote{
+  A precise formulation of this without using de Rham spaces
+  can be found in \cite{BB-93}.
+}
+This brings us to the question : how to define
+$G^L$ bundles on something like $X_\DR$ ?
+A more important question is : 
+can we also make the collection of $G^L$ bundles on $X_\DR$
+into an object of algebraic geometry i.e. a presheaf over $k$? 
+
+\textbf{Idea 4 : Stack quotients by group actions}
+
+Let me first say that the standard definition of
+$G$ bundles on a scheme $X$
+generalise to the setting where 
+$G$ is any group object in $\PSH_k$ and $X$ is any presheaf.
+\footnote{
+  Another name for $G$ bundles is \emph{$G$ torsors}.
+}
+I leave the definition to the notes.
+\begin{dfn}
+
+  Let $G$ be a group object in $\PSH_k$
+  and $X$ a general presheaf.
+  Then a $G$ bundle on $X$ is 
+  a morphism $P \to X$ where
+  \begin{enumerate}
+    \item $P$ is equipped with a right $G$-action, $X$ the trivial action, 
+    and $P \to X$ is $G$-equivariant
+    \item for all points $x : S \to X$ where $S$ is affine,
+    there exists an fpqc affine $T \to S$ such that
+    $T \times_X P$ is isomorphic to $T \times G$ as $G$-actions.
+  \end{enumerate}
+\end{dfn}
+
+And now we try to define the \emph{classifying space of $G$ bundles}.
+This is related to taking quotients by group actions
+so I will describe the general procedure.
+If I had more time, I would do a more detailed motivation for stacks.
+but we're short on time here so let me just give you the answer
+people came up with and some intuition to make it believable.
+% \begin{dfn}[Attempt 1 at $\bB G$]
+  
+%   Define $\bB G$ by the functor \[
+%     \bB G (A) := \text{ set of $G$ bundles on $\SPEC A$}
+%   \]
+% \end{dfn}
+% What's the issue with this?
+% Well, it's not functorial!
+% One can see this at the level of sets already.
+% Take the following diagram in $\SET$.
+% \begin{cd}
+% 	{\set{b}} & {\set{(b,c)}} & {\set{((b,c),d)}} & {\set{(b,d)}} \\
+% 	{\set{a}} & {\set{c}} & {\set{d}}
+% 	\arrow[from=1-2, to=1-1]
+% 	\arrow[from=1-3, to=1-2]
+% 	\arrow["g"', from=2-3, to=2-2]
+% 	\arrow["f"', from=2-2, to=2-1]
+% 	\arrow[from=1-1, to=2-1]
+% 	\arrow[from=1-2, to=2-2]
+% 	\arrow[from=1-3, to=2-3]
+% 	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+% 	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-3, to=2-2]
+% 	\arrow["\neq"{description}, draw=none, from=1-4, to=1-3]
+% \end{cd}
+% The point is that $(fg)^*$ and $g^* f^*$ are not equal
+% but only isomorphic.\footnote{
+%   If you really want this to be a counter example,
+%   you can define these singletons as constant presheaves
+%   and use the trivial group as $G$.
+%   Then this demonstrates pullback of $G$ bundles
+%   fails to be functorial.
+% }
+% ``Okay, then let's take isomorphism classes'' you might say.
+% \begin{dfn}[Attempt 2 at $\cB G$]
+  
+%   Define $\bB G$ by the functor \[
+%     \bB G (A) := \text{ set of isomorphism classes of $G$ bundles on $\SPEC A$}
+%   \]
+% \end{dfn}
+% Now this is strictly functorial.
+% So what's the issue?
+% The issue is \emph{descent}.
+
+\begin{dfn}[Quotient stack]
+  
+  Let $X$ be a presheaf and $G$ a group presheaf.
+  Then the \emph{(fpqc) quotient stack X / G} is defined
+  as the ``functor'' that sends each affine $S$ to 
+  the \emph{groupoid} of diagrams
+  \begin{cd}
+    P & X \\
+    {S}
+    \arrow["{\text{G bundle}}"', from=1-1, to=2-1]
+    \arrow["{G\text{ equiv}}", from=1-1, to=1-2]
+  \end{cd}
+\end{dfn}
+Intuition for this definition : 
+\begin{enumerate}
+  \item Analogy with group actions on sets : 
+  Assume momentarily that $X$ and $G$ and $S$ are sets.
+  Then a map $S \to X$ is equivalent to a diagram
+  \begin{cd}
+    S \times G & X \\
+    {S}
+    \arrow["{\text{G bundle}}"', from=1-1, to=2-1]
+    \arrow["{G\text{ equiv}}", from=1-1, to=1-2]
+  \end{cd}
+  Intuitively, 
+  ``the points in $S$ maps to points in $X$ which gives $G$ orbits
+  in the obvious way''.
+  The set of such diagrams forms a groupoid.
+  Intuitively, a path moves the $S$-family of points in $X$ 
+  along their individual orbits.
+  \begin{cd}
+    {S \times G} & X \\
+    S & {S \times G}
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-2, to=2-1]
+    \arrow["g"', from=1-1, to=2-2]
+    \arrow["x", from=1-1, to=1-2]
+    \arrow["{y = g.x}"', from=2-2, to=1-2]
+  \end{cd}
+  We see that the path connected components of this groupoid
+  bijects with the set of $S$-families of $G$ orbits in $X$,
+  i.e. maps $S \to X / G$.
+
+  Now back to algebraic geometry, the idea is the same
+  except we allow the $S$-family of copies of $G$ to 
+  ``vary non-trivially across $S$''.
+  This is exactly what a $G$ bundle on $S$ is.
+  \item There is a map $X \to X / G$.
+  For each point $x : S \to X$ where $S$ is affine,
+  note that this is equivalent to a diagram 
+  of the above form.
+  This says ``points of $X$ give rise to $G$-orbits in $X$''.
+  So we send $x \in X(S)$ to the point in $(X / G)(S)$
+  which is the trivial $G$ bundle on $S$.
+  \item Maps into $X / G$ glue.
+  This is a natural generalisation of the fact that
+  maps into a fixed scheme glue which
+  reconciles with the fact that points of $X / G$ now have
+  \emph{possibly non-trivial ``equalities''}.
+  \footnote{
+    If anyone asks,
+    this also explains why we want groupoids.
+    If we took isomorphism classes instead, then maps don't glue.
+    Give the $\bB \bG_m$ and $\bP^1$ example.
+  }
+  The fancy way of saying this is that $X / G$ satisfies (fpqc) descent.
+  ``Groupoid valued presheaves which satisfy descent''
+  are what people mean by \emph{stacks}.
+  % For example, given a scheme $S$ and a
+  % Zariski cover of affine opens $\coprod_{i \in I} U_i = \cU \to S$, 
+  % a map $S \to [X / G]$ is equivalent to
+  % a map $\cU \to [X / G]$ that 
+  % agrees on double intersections $\cU \times_S \cU$ 
+  % \emph{and triple intersections} $\cU \times_S \cU \times_S \cU$.
+  \item Taking $X = \SPEC k$ equipped with the trivial action
+  gives the \emph{classifying stack of $G$ bundles},
+  usually denoted with $BG$.
+  \footnote{
+    Fingers crossed no one asks about the universal property of
+    stack quotient.
+    I can't find reference in \cite{lurie-htt}.
+  }
+  \item $\QCOH X / G$ is equivalent to the category 
+  $\QCOH^* (X , X \times G)$ of quasi-coherent sheaves on $X$ equipped with  
+  equivariance w.r.t. the action of $G$.
+  \footnote{
+    Formally, equivariance w.r.t. the action groupoid 
+    $G \times X \rightrightarrows X$.
+  }
+  In particular, $\QCOH(BG) \simeq \REP_k G$.
+\end{enumerate}
+
+Now that I've given some reasons for why we want to use stacks,
+one can hopefully see that technically speaking 
+we now need to redo the foundations,
+replacing presheaves with \emph{prestacks}.
+This is what \cite{lurie-htt} does for us.
+Modulo 500+ pages of technicalities,
+the definition is the same except sets are replaced with
+sets with paths and paths between paths and so on,
+A.K.A. \emph{$\infty$-groupoids}.
+\footnote{
+  If anyone asks :
+  technically, we only need $1$-groupoids and this is what \cite{BD} does.
+  But all the latest papers, e.g. by Gaitsgory,
+  are done in the language of higher categories as developed by Lurie.
+}
+
+\begin{dfn}
+  
+  The $\infty$-category of \emph{prestacks over $k$} is defined as
+  the functor category
+  \[
+    \PSTK_k := \mathrm{Fun}(\AFF_k , \infty\GRPD^\OP)
+  \]
+  where $\infty\GRPD$ is the $\infty$-category of $\infty$-groupoids.
+
+  There is a full subcategory of prestacks satisfying 
+  (fpqc) descent.
+  This is called the category of \emph{stacks over $k$}.
+  \[
+    \STK_k \subs \PSTK_k
+  \]
+\end{dfn}
+
+\end{document}

@@ -1,0 +1,276 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+To give a statement of the ``Galois to automorphic'' direction of 
+categorical geometric Langlands,
+I need to describe the two Hecke actions on $D\MOD(\BUN_G)$.
+We begin with the automorphic side by
+giving the geometric analogue of the local spherical Hecke algebras
+from arithmetic Langlands.
+Let $x \in X(k)$.
+
+\begin{dfn}
+
+%   The \emph{local Hecke correspondence at $x$} is defined by
+% \begin{cd}
+%   {\BUN_G D_x} & {\HECKE^{\LOC}_x} \\
+% 	{\BUN_G D_x^\circ} & {\BUN_G D_x}
+% 	\arrow[from=1-1, to=2-1]
+% 	\arrow[from=2-2, to=2-1]
+% 	\arrow[from=1-2, to=1-1]
+% 	\arrow[from=1-2, to=2-2]
+% 	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+% \end{cd}
+The \emph{spherical Hecke category at $x$} 
+is defined as \[
+  \SPH_{G , x} := D\MOD( G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x) )
+\]
+where $ G(\cO^\wedge_x), G(K^\wedge_x)$
+are the \emph{arc and loop group at $x$}.
+\end{dfn}
+The arc and loop groups are respectively schemes and ind-affine schemes
+over $k$.
+\cite[Proposition 1.3.2]{Zhu-16}
+Their $k$-valued points recover the
+honest-to-god groups $G(\cO^\wedge_x), G(K^\wedge_x)$.
+The space underlying $\SPH_{G,x}$ is important so we'll give it a name.
+
+\begin{dfn}
+  We will call the (fpqc) double quotient 
+\[
+  \HECKE_x^\LOC := G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)
+\]
+the \emph{local Hecke correspondence at $x$}.
+The multiplication on the loop group induces a diagram
+involving $\HECKE_x^\LOC$
+\begin{cd}
+  {G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)} & {G(\cO^\wedge_x) \backslash G(K^\wedge_x) \times^{G(\cO^\wedge_x)} G(K^\wedge_x) / G(\cO^\wedge_x)} & {G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)} \\
+	& {G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)}
+	\arrow["{p_0}"', from=1-2, to=1-1]
+	\arrow["{p_1}"', from=1-2, to=2-2]
+	\arrow["m", from=1-2, to=1-3]
+\end{cd}
+% Using the same ``transition map'' argument we did for 
+% vector bundles on $\bP^1$, 
+% one can show that $\HECKE^\LOC_x$
+% fits in a cartesian square
+% \begin{cd}
+%   {\BUN_G D_x} & {\HECKE^\LOC_x} \\
+%   {\BUN_G D^\circ_x} & {\BUN_G D_x}
+%   \arrow[from=1-1, to=2-1]
+%   \arrow[from=2-2, to=2-1]
+%   \arrow[from=1-2, to=1-1]
+%   \arrow[from=1-2, to=2-2]
+%   \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+% \end{cd}
+This allows one to define a monoidal product $\_ * \_$ 
+on $\SPH_{G,x}$ via convolution.
+\end{dfn}
+% One can give a double coset description of $\HECKE_x^\LOC$
+% by doing similar argument as what we did with vector bundles on $\bP^1$ :
+% All $G$-bundles on the disk $D_x$ are trivial.
+% So one obtain 
+% \begin{prop}
+
+%   \[
+%     \HECKE_x^\LOC \simeq 
+%     G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)
+%   \]
+%   where $ G(\cO^\wedge_x), G(K^\wedge_x)$
+%   are the \emph{arc and loop group at $x$},
+%   suitably defined as presheaves over $k$.
+% \end{prop}
+% Pulling the cartesian square defining $\HECKE_x^\LOC$ along
+% $\BUN_G X\setminus\set{x}$ gives :
+% \begin{dfn}
+  
+%   The \emph{Hecke correspondence at $x$} is defined by :
+%   \begin{cd}
+%     {\BUN_G D_x} & {\HECKE^\LOC_x} \\
+%     {\BUN_G D_x^\circ} & {\BUN_G D_x} & {\BUN_G X} & {\HECKE_x} \\
+%     && {\BUN_G X\setminus\set{x}} & {\BUN_G X}
+%     \arrow[from=1-1, to=2-1]
+%     \arrow[from=2-2, to=2-1]
+%     \arrow[from=1-2, to=1-1]
+%     \arrow[from=1-2, to=2-2]
+%     \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+%     \arrow[from=3-3, to=2-1]
+%     \arrow[from=2-3, to=1-1]
+%     \arrow[from=3-4, to=2-2]
+%     \arrow[from=3-4, to=3-3]
+%     \arrow[from=2-3, to=3-3]
+%     \arrow[from=2-4, to=2-3, "{p_0}"]
+%     \arrow[from=2-4, to=3-4, "{p_1}"]
+%     \arrow[from=2-4, to=1-2, "{p}"']
+%     \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=2-4, to=3-3]
+%   \end{cd}
+% \end{dfn}
+The monoidal structure on $\SPH_{G , x}$ is a categorification
+of the algebra structure on the local Hecke algebras from arithmetic Langlands.
+In arithmetic Langlands, 
+the local Hecke algebras act on the space of (unramified) cusp forms
+by Hecke operators.
+In analogy to this, 
+we now define an action of $\SPH_{G , x}$ on $D\MOD(\BUN_G)$.
+\[
+  H_x : \SPH_{G , x} \times D\MOD(\BUN_G) \to D\MOD(\BUN_G)
+\]
+But to do this, we need to know how to
+make $D$-modules on $\BUN_G$ using a point $x \in X(k)$.
+We have the following 
+\begin{dfn}[Full level structure at $x$]
+  
+  Define the \emph{stack of $G$ bundles on $X$ equipped with
+  full level structure at $x$} by the cartesian diagram 
+  \begin{cd}
+    {\BUN_G X} & {\BUN_{G,x}^\LVL} \\
+    {\BUN_G D_x} & {\SPEC k}
+    \arrow[from=1-1, to=2-1]
+    \arrow["{\text{triv}}", from=2-2, to=2-1]
+    \arrow[from=1-2, to=1-1]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+  \end{cd}
+\end{dfn}
+There is a map 
+\[
+  \BUN_{G,x}^\LVL \to \BUN_G
+\]
+obtained by forgeting the full level structure at $x$.
+This morphism is equivariant w.r.t. the action of
+$G(\cO^\wedge_x)$ on $\BUN_{G,x}^\LVL$
+and in fact is a $G(\cO^\wedge_x)$ bundle.
+We obtain \[
+  \BUN_G \simeq G(\cO^\wedge_x) \backslash \BUN_{G,x}^\LVL
+\]
+Thus, $D$-modules on $\BUN_G$ can be obtained from
+arc-group-equivariant $D$-modules on $\BUN_{G,x}^\LVL$.
+The action of $\SPH_{G,x}$ will also be defined by convolution.
+With that idea,
+we see that we need to extend the action of the arc group
+to an action of the loop group.
+
+\begin{dfn}[Regluing]
+  There is an action of $G(K^\wedge_x)$ on $\BUN_G^x$ 
+  \[
+    \REGLUE : \BUN_{G,x}^\LVL \times G(K^\wedge_x)  \to \BUN_{G,x}^\LVL
+  \]
+  given intuitively by the following : 
+  For $g \in G(K^\wedge_x)$, $P$ a $G$ bundle on $X$ and
+  $s : \res{\TRIV}{D_x} \to \res{P}{D_x}$,
+  make the following descent data : 
+  \begin{cd}
+    {\res{\TRIV}{D_x}} & {\res{\TRIV}{D_x^\circ}} & {\res{P}{D_x^\circ}} & {\res{P}{X\setminus\set{x}}}
+    \arrow[from=1-2, to=1-1]
+    \arrow[from=1-3, to=1-4]
+    \arrow["{s g}", from=1-2, to=1-3]
+  \end{cd}
+  This then $\REGLUE(g , P , s)$ is defined as
+  the $G$ bundle on $X$ obtained by gluing the above descent data.
+  \footnote{
+    If anyone asks : 
+    Technically speaking,
+    we must be able to do this gluing in families.
+    Although fpqc descent is not enough to glue over
+    non locally finite type spaces,
+    the local finite type condition of $X$ ensures
+    that we only need to know how to glue in finite type situations.
+    This is then covered by fpqc descent.
+    Alternatively, if one doesn't care about being minimal,
+    one can use the Beauville--Laszlo theorem.
+  }
+\end{dfn}
+We can now define the local Hecke action by convolution.
+(Maybe skip the diagram.)
+
+\begin{dfn}[Local Hecke action]
+  
+  Consider the diagram 
+  \begin{cd}
+    {G(K^\wedge_x)} & {G(K^\wedge_x) \times \BUN_{G,x}^\LVL} & {\BUN_{G,x}^\LVL} \\
+    & {\BUN_{G,x}^\LVL}
+    \arrow["{p_0}"', from=1-2, to=1-1]
+    \arrow["{p_1}"', from=1-2, to=2-2]
+    \arrow["{\REGLUE}", from=1-2, to=1-3]
+  \end{cd}
+  We can take a lot of (fpqc) quotients by the arc group and get 
+  \begin{cd}
+    {G(\cO^\wedge_x) \backslash G(K^\wedge_x) / G(\cO^\wedge_x)} 
+    & {G(\cO^\wedge_x) \backslash G(K^\wedge_x) \times^{G(\cO^\wedge_x)} \BUN_{G,x}^\LVL} 
+    & {G(\cO^\wedge_x) \backslash \BUN_{G,x}^\LVL} & {\BUN_G} \\
+    & {G(\cO^\wedge_x) \backslash \BUN_{G,x}^\LVL} \\
+    & {\BUN_G}
+    \arrow["{p_0}"', from=1-2, to=1-1]
+    \arrow["{p_1}"', from=1-2, to=2-2]
+    \arrow["{\REGLUE}", from=1-2, to=1-3]
+    \arrow["\simeq"{marking}, draw=none, from=2-2, to=3-2]
+    \arrow["\simeq"{marking}, draw=none, from=1-3, to=1-4]
+  \end{cd}
+  The \emph{local Hecke action} is defined as\footnote{
+    if anyone asks :
+    give nice interpretation of middle term as
+    Hecke correspondence at $x$.
+  }
+  \begin{align*}
+    \SPH_{G,x} \times D\MOD(\BUN_G) \to D\MOD(\BUN_G) \\
+    \cS , \cF \mapsto H_x(\cS , \cF) := (\REGLUE)_*\brkt{p_0^! S \otimes p_1^! \cF}
+  \end{align*}
+\end{dfn}
+
+In order to make the definition of Hecke eigensheaf,
+we need to bundle of the local Hecke actions together
+into a single action over $X$.
+This is roughly done in the following steps : 
+(Skip all diagram and say ``replace $x$ with $X$''. 
+Except for final formula.)
+\begin{enumerate}
+  \item 
+  The arc and loop groups relativises to group presheaves
+  over $X$ 
+  \begin{cd}
+    {G(\cO^\wedge_X)} && {G(K^\wedge_X)} \\
+    & X
+    \arrow[from=1-1, to=2-2]
+    \arrow[from=1-3, to=2-2]
+    \arrow[from=1-1, to=1-3]
+  \end{cd}
+  The local Hecke correspondences also relativises
+  \[
+    \HECKE^\LOC_X := 
+    G(\cO^\wedge_X) \backslash G(K^\wedge_X) / G(\cO^\wedge_X) \to X
+  \]
+
+  \item The family $\BUN_{G,x}^\LVL \to \BUN_G$ relativises to
+  \[
+    \BUN_G^\LVL \to X \times \BUN_G
+  \]
+  and the action so does the action of the loop group \[
+    G(K^\wedge_X) \times_X \BUN_G^\LVL \to \BUN_G^\LVL
+  \]
+  \item The convolution diagram relativises : 
+  \begin{cd}
+    {G(\cO^\wedge_X) \backslash G(K^\wedge_X) / G(\cO^\wedge_X)} 
+    & {G(\cO^\wedge_X) \backslash G(K^\wedge_X) \times^{G(\cO^\wedge_X)} \BUN_{G,X}^\LVL} 
+    & {G(\cO^\wedge_X) \backslash \BUN_{G,X}^\LVL} & {X \times \BUN_G} \\
+    & {G(\cO^\wedge_X) \backslash \BUN_{G,X}^\LVL} \\
+    & {\BUN_G}
+    \arrow["{p_0}", from=1-2, to=1-1]
+    \arrow["{p_1}"', from=1-2, to=2-2]
+    \arrow["{\REGLUE}"', from=1-2, to=1-3]
+    \arrow[from=2-2, to=3-2]
+    \arrow["\simeq"{marking}, draw=none, from=1-3, to=1-4]
+  \end{cd}
+  This defines the \emph{global Hecke action} : 
+  \footnote{
+    If anyone asks : 
+    give geometric interpretation of middle term as
+    Hecke correspondence.
+  }
+  \begin{align*}
+    \SPH_{G,X} \times D\MOD(\BUN_G) \to D\MOD(X \times \BUN_G) \\
+    \cS , \cF \mapsto H(\cS , \cF) := (p_1)_*\brkt{p^! S \otimes p_0^! \cF}
+  \end{align*}
+\end{enumerate}
+
+
+\end{document}

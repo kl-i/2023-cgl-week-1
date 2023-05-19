@@ -1,0 +1,330 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+We begin by describing the Galois side.
+For motivation, anything I say about the fundamental group
+is intentionally vague.
+
+Classically, Galois representations are
+representations of the absolute Galois group $\GAL(\bar{K} / K)$.
+Let $\bar{\eta} = \SPEC\overline{K} \to \SPEC K = \eta$ 
+be the geometric point of $X$ corresponding
+to the choice of algebraic closure $\bar{K}$ of $K$.
+Let $E$ be the field our representations are over.
+Classically, $E$ is $\overline{\bQ}_\ell$ when $k = \bF_q$ 
+and $\bC$ when $k = \bC$.
+Then an $n$-dimensional Galois represention is a group homomorphism 
+\[
+  \pi_1^\ET(\eta, \overline{\eta}) := \GAL(\bar{K} / K) \to \GL_n(E)
+\]
+
+The first step is to replace $\GAL(\bar{K} / K)$ with the
+étale fundamental group of $X$.
+It can be defined as follows :
+\footnote{
+  \href{https://stacks.math.columbia.edu/tag/0BQM}{Stacks Project, Proposition
+  58.11.3}
+}
+\begin{cd}
+  {\mathrm{Gal}(\overline{K}/K)} & {\pi_1^\ET(X,\overline{\eta})} \\
+  {\mathrm{Gal}(M / K)}
+  \arrow[two heads, from=1-1, to=2-1]
+  \arrow["\sim"', from=2-1, to=1-2]
+  \arrow[from=1-1, to=1-2]
+\end{cd}
+where $M$ is the compositum of all finite subextensions 
+$K \to E \subs \overline{K}$ such that 
+\begin{cd}
+  {\mathrm{Spec}\,E} & {X^E} \\
+  & X
+  \arrow[from=1-1, to=2-2]
+  \arrow["{\text{normalisation}}"{yshift=3mm}, from=1-1, to=1-2]
+  \arrow["{\text{unram. eqv. étale}}", from=1-2, to=2-2]
+\end{cd}
+
+We now pass over to topology.
+Restrict to $k = E = \bC$.
+Then the Riemann existence theorem says
+there is an equivalence between the category of finite étale covers of $X$
+and that of $X(\bC)$.
+From this, one obtains \[
+  \pi_1^\ET(X , \overline{\eta}) \simeq \pi_1(X, x)^\wedge
+\]
+where the latter is the profinite completion of the topological
+fundamental group of $X(\bC)$.
+We work directly with $\pi_1(X, x)$.
+
+Now, topologically there are three ways of talking about
+representations of $\pi_1(X,x)$.
+The point is that all three notions are describing the same idea of
+giving isomorphisms between fibers along points that are ``close together''
+\begin{cd}
+	{\mathrm{Fun}(\Pi_1X , \mathrm{Vec}_{\mathbb{C}})} 
+  & {\mathrm{Sh}_{\text{l.c.}}(X,\mathbb{C})} 
+  & {\mathrm{QCoh}(X , X^{(\infty)})}
+	\arrow["\simeq"{description}, draw=none, from=1-2, to=1-3]
+	\arrow["\simeq"{description}, draw=none, from=1-1, to=1-2]
+\end{cd}
+\begin{enumerate}
+  \item Functors from the fundamental groupoid of $X$ into 
+  the category of (finite dimenstional) vector spaces over $\bC$.
+  This gives isomorphism of fibers when points are related by
+  a path-up-to-homotopy.
+  \item Locally constant sheaves on $X$ valued in 
+  (finite dimensional) $\bC$-vector spaces.
+  This gives isomorphism of fibers when points are related by
+  being in a common open that is small enough.
+  \item Vector bundles on $X$ equipped with a flat connection.
+  This gives an isomorphism of fibers when points are
+  ``infinitesimally close''.
+\end{enumerate}
+The final description is the one we will focus on.
+From now on, we do not need $k$ to be $\bC$ anymore.
+
+Although the notion of points being ``infinitesimally close'' is
+ill-defined in analysis, it can be made precise in algebraic geometry
+using nilpotence.
+To describe this, it is convenient to use the functor of points approach
+to algebraic geometry.
+
+\begin{dfn}
+
+  Let $\AFF_k$ denote the opposite of the category of
+  commutative $k$-algebras.
+  Define the category of \emph{presheaves over $k$}
+  to be \[
+    \PSH_k := \PSH \AFF_k
+  \]
+  Let $\AFF_k^\FT$ be the full subcategory of $\AFF_k$
+  consisting of finite type affine schemes.
+  This induces a fully faithful functor
+  \[
+    \PSH \AFF_k^\FT \to \PSH \AFF_k
+  \]
+  We view $\PSH \AFF_k^\FT$ as a full subcategory of $\PSH \AFF_k$.
+  Presheaves in here are called \emph{locally finite type}.
+\end{dfn}
+Practically speaking,
+the locally finite type assumption allows us to
+do all manipulations with only finite type $k$-algebras.
+
+The curve $X$ lives $\PSH \AFF_k$ by
+$X(A) := \HOM(\SPEC A , X)$
+and is in fact locally of finite type.
+\footnote{TODO}
+
+We now define ``the quotient of $X$ by infinitesimally close points''.
+\begin{dfn}
+  The \emph{de Rham space} of $X$ is defined as the functor 
+  \[
+    X_\DR(A) := X(A_\RED)
+  \]
+  where $A_\RED$ is the quotient of $A$ by its nilradical.
+
+  There is a morphism $\pi : X \to X_\DR$ given by
+  restricting any $\SPEC A \to X$ along $\SPEC A_\RED \to \SPEC A$.
+\end{dfn}
+
+Since $X$ is locally finite type,
+we have that $X$ is formally smooth iff $\pi : X \to X_\DR$ is surjective.
+With sets,
+a map $X \to Y$ is surjective iff we have a coequalizer diagram : 
+\[
+  X \times_Y X \rightrightarrows X \to Y
+\]
+i.e. $Y$ is the quotient of $X$ by the equivalence relation $X \times_Y X$.
+The great thing about $\PSH \AFF_k$ is that
+it shares many categorical properties
+to the category $\SET$ of sets in the sense that 
+any construction you can think of in $\SET$ can be done in $\PSH \AFF$.
+\footnote{The categorical jargon for this is that $\PSH_k$ is a 
+\emph{Grothendieck topos}.}
+In particular, 
+limits and colimits exist in $\PSH \AFF_k$ and
+are computed ``point-wise''.
+As an example, for $f : X \to Y$ in $\PSH \AFF_k$,
+we have $f$ is an epimorphism in $\PSH \AFF_k$ iff
+for all $A \in \AFF_k$, $f : X(A) \to Y(A)$ is an epimorphism in $\SET$.
+Applying this, we obtain a coequalizer diagram : 
+\[
+  X^{(\infty)} := X \times_{X_\DR} X \rightrightarrows X \to X_\DR
+\]
+$X^{(\infty)}$ here is called the \emph{infinitesimal groupoid} of $X$.
+It has the following concrete description : 
+since $X$ is separated, the diagonal $X \to X \times X$ is a closed embedding.
+Let $I_\De$ be the ideal sheaf of the diagonal
+and $X(n) := V(I_\De^{n+1})$ denote the $n$-order neighbourhood of
+the diagonal.
+These form an inductive system of closed subschemes of $X \times X$.
+We then have \[
+  \COLIM_{n \in \bN} X^{(n)} \simeq X^{(\infty)}
+\]
+
+Given $\cF \in \QCOH X$,
+a flat connection on $\cF$ should for each $(x,y) \in (X \times X)(A)$
+with $\pi(x) = \pi(y)$, give an isomorphism $\phi_{x,y} : \cF_x \to \cF_y$.
+Moreover, we want the identification of fibers to
+respect the fact that the equivalence relation $X^{(\infty)}$
+is reflexive and transitive.
+Making this precise amounts to defining
+an \emph{equivariance structure on $\cF$ w.r.t. $X^{(\infty)}$}.
+
+\begin{dfn}
+  
+  Consider the following diagram : 
+  \begin{cd}
+    {X \times_{X_\DR} X \times_{X_\DR} X} & {X \times_{X_\DR} X} & {X}
+    \arrow["{p_0}"{description}, shift left=2, from=1-2, to=1-3]
+    \arrow["{p_{12}}"{description}, from=1-1, to=1-2]
+    \arrow["{p_{02}}"{description}, shift right=4, from=1-1, to=1-2]
+    \arrow["{p_{01}}"{description}, shift left=4, from=1-1, to=1-2]
+    \arrow["{p_1}"{description}, shift right=2, from=1-2, to=1-3]
+  \end{cd}
+  where we have the projections \begin{itemize}
+    \item $p_i : X \times_{X_\DR} X \to X, (x_0 , x_1) \mapsto x_i$
+    \item $p_{ij} : X \times_{X_\DR} X \times_{X_\DR} X \to X \times_{X_\DR} X, 
+    (x_0 , x_1, x_2) \mapsto (x_i , x_j)$
+  \end{itemize}
+
+  Then define the \emph{category $\QCOH^*(X , X^{(\infty)})$ 
+  of infinitesimally equivariant quasi-coherent sheaves on $X$} as follows : 
+  \begin{itemize}
+    \item An object is 
+    a quasi-coherent sheaf $\cF \in \QCOH X$
+    equipped with a \emph{transition map} 
+    $\phi : p_0^* \cF \cong p_1^* \cF$ 
+    in $\QCOH( X \times_{X_\DR} X)$ such that
+    \begin{enumerate}
+      \item $\phi = \id$ when restricted to the diagonal 
+      $\De : X \to X \times_{X_\DR} X$
+      \item the following diagram commute : 
+      \begin{cd}
+        & {p_{01}^*p_1^* \mathcal{F}} \\
+        {p_{01}^*p_0^*\mathcal{F}} && {p_{12}^*p_0^*\mathcal{F}} \\
+        {p_{02}^*p_0^*\mathcal{F}} && {p_{12}^*p_1^*\mathcal{F}} \\
+        & {p_{02}^*p_1^* \mathcal{F}}
+        \arrow["{p_{01}^*(\phi)}", from=2-1, to=1-2]
+        \arrow["{p_{12}^*(\phi)}", from=2-3, to=3-3]
+        \arrow["{p_{02}^*(\phi)}"', from=3-1, to=4-2]
+        \arrow["\sim"', from=2-1, to=3-1]
+        \arrow["\sim", from=1-2, to=2-3]
+        \arrow["\sim", from=3-3, to=4-2]
+      \end{cd}
+    \end{enumerate}
+    \item a morphism $\eta : (\cF , \phi) \to (\cG , \psi)$ is
+    a morphism $\eta : \cF \to \cG$ in $\QCOH X$ such that
+    the following commutes : 
+    \begin{cd}
+      {p_0^* \cF} & {p_1^* \cF} \\
+      {p_0^* \cG} & {p_1^* \cG}
+      \arrow["{p_0^*(\eta)}"', from=1-1, to=2-1]
+      \arrow["{p_1^*(\eta)}", from=1-2, to=2-2]
+      \arrow["\psi"', from=2-1, to=2-2]
+      \arrow["\phi", from=1-1, to=1-2]
+    \end{cd}
+  \end{itemize}
+  
+\end{dfn}
+One can show that for $\cF \in \QCOH X$,
+an infinitesimal equivariance structure is the same as
+a connection in the classical sense.
+
+In general, for any $Y \in \PSH \AFF_k$ one can define a category 
+$\QCOH Y$ of quasi-coherent sheaves on $Y$.
+There will be for any $f : X \to Y$ a pullback functor
+$f^* : \QCOH Y \to \QCOH X$.
+One can then show
+\begin{prop}
+  
+  For $\cF \in \QCOH X_\DR$ the pullback $\pi^* \cF$ has
+  an obvious equivariance structure w.r.t. $X^{(\infty)}$.
+  This induces an equivalence \[
+    \pi^* : \QCOH X_\DR \map{\sim}{} \QCOH^*(X , X^{(\infty)})
+  \]
+\end{prop}
+
+In general, we have the following.
+
+\begin{prop}
+
+  Define $(\PSH_k / X)^{X^{(\infty)}}$ as
+  presheaves over $X$ equipped with equivariance w.r.t $X^{(\infty)}$.
+  Then pulling back presheaves over $X_\DR$ along $\pi$
+  gives an equivalence of categories \[
+    \pi^* : \PSH_k / X_\DR \map{\sim}{} (\PSH_k / X)^{X^{(\infty)}}
+  \]
+\end{prop}
+One should thus think of objects living over $X_\DR$ as
+objects on $X$ equipped with a connection.
+
+Finally, we make the step from $\GL_n$ to general reductive $G$.
+A rank $n$ vector bundle on $X$ is equivalently a $\GL_n$-torsor on $X$.
+It makes sense to talk about $G$-torsors on $X$ for any algebraic group $G$.
+In fact, it makes sense to talk about $G$-torsors on any presheaf.
+See \cite[Section 0.3.3]{Zhu-16}.
+
+\begin{dfn}
+  
+  A $G^L$-local system on $X$ is a $G^L$-torsor over $X_\DR$.
+\end{dfn}
+
+Let $\LOCSYS_{G^L}(k)$ denote the set of isomorphism classes of 
+$G^L$ local systems on $X$.
+We would like to give this set some geometric structure.
+To do this, a natural first question to ask is
+whether one can make a moduli space for $G^L$ torsors.
+This is where stacks appear.
+
+\begin{dfn}
+  
+  Let $G$ be a general algebraic group.
+  The \emph{classifying stack of $G$} is defined as the
+  follow \emph{groupoid} valued functor \[
+    BG(A) := \text{ groupoid of $G$-torsors on $\SPEC A$}
+  \] 
+\end{dfn}
+Technically speaking, $BG$ doesn't live in $\PSH_k$ anymore.
+This is one aspect with higher categories appear.
+Sets precisely groupoids where there are no non-trivial paths between points.
+In this sense, groupoids generalise sets.
+Although at this point we do not need to go to higher groupoids,
+the framework has been conveniently laid out in \cite{lurie-htt}.
+This leads to the following refinement of $\PSH_k$.
+
+\begin{dfn}
+  
+  The $\infty$-category of \emph{prestacks over $k$} is defined as
+  the functor category
+  \[
+    \PSTK_k := \mathrm{Fun}(\AFF_k , \infty\GRPD^\OP)
+  \]
+  where $\infty\GRPD$ is the $\infty$-category of $\infty$-groupoids.
+
+  We analogously define 
+  $\PSTK_k^\FT := \mathrm{Fun}(\AFF_k^\FT , \infty\GRPD^\OP)$.
+\end{dfn}
+In particular, we have $BG^L \in \PSTK_k$.
+What we want now is a ``space'' which classifies
+maps from $X_\DR$ to $BG^L$.
+In other words, we would like to form a ``mapping stack''
+$\underline{\MAP}(X_\DR , BG^L)$.
+Again, with inspiration from $\SET$,
+one comes up with the following.
+\begin{dfn}
+  The mapping stack $\underline{\MAP}(X_\DR , BG^L)$ is defined as \[
+    \underline{\MAP}(X_\DR , BG^L)(A) := 
+    \MAP(X_\DR \times \SPEC A , BG^L)
+  \]
+
+  The \emph{stack of $G^L$ local systems on $X$} is defined to be
+  exactly the above \[
+    \LOCSYS_{G^L} := \underline{\MAP}(X_\DR , BG^L)
+  \]
+\end{dfn}
+Note that taking $k$-valued points of $\LOCSYS_{G^L}$ gives
+the groupoid $\LOCSYS_{G^L}(k)$ of $G^L$-torsors on $X_\DR$.
+By connected components of this groupoid, we recover
+isomorphism classes of $G^L$ local systems on $X$.
+
+
+\end{document}

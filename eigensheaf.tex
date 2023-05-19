@@ -1,0 +1,140 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+The previous section was all on the automorphic side.
+Finally, we make contact with the Galois side.
+
+\begin{prop}[Geometric Satake]
+
+  Consider the spherical Hecke category \[
+    \SPH_G := D\MOD(\HECKE^\LOC)
+  \]
+  where $\HECKE^\LOC := G\bbrkt{t} \backslash G((t)) / G\bbrkt{t}$.
+  This is the version of $\SPH_{G,x}$ for $X = \bA^1, x = 0$.
+  \footnote{
+    We don't use the projectivity of $X$ for geometric Satake.
+    Indeed, since geometric Satake is \emph{local}
+    it should be independent of the choice of curve $X$.
+  }
+  Then the convolution product on $\SPH_G$ 
+  makes $\SPH_G$ into a rigid tensor category.
+  \footnote{
+    Possible question someone might ask : 
+    is the convolution product ``commutative'' like in
+    the arithmetic case for $\GL_n$?
+    The categorification of ``commutative'' is
+    symmetric monoidal.
+    The answer is yes, but requires hard geometry.
+    See \cite[Section 5.2]{Zhu-16}.
+  }
+  There exists a (faithful exact) tensor functor $F : \SPH_G \to \VEC_k$ 
+  which induces an equivalence of tensor categories 
+  \[
+    \SPH_G \simeq \REP_k G^L , \cS_V \mapsfrom V
+  \]
+  via the Tannaka reconstruction theorem.
+  \footnote{
+    If anyone asks :
+    roughly speaking,
+    this recovers the classical Satake isomorphism
+    by taking Grothendieck rings on both sides.
+    RHS has basis by dominant coweights $X_\bullet(T)^+$.
+    See \cite[Section 5.6]{Zhu-16}.
+  }
+  \footnote{
+    If anyone asks :
+    the reason we need to use fpqc quotients instead of
+    just prestack quotients is that
+    the geometry of the affine Grassmannian 
+    $\GR_G := G((t)) / G\bbrkt{t}$ plays an important role in
+    proving geometric Satake.
+    If we didn't sheafify, 
+    the space would simply be wrong.
+  }
+  \footnote{
+    If anyone asks :
+    Tannaka reconstruction can be seen as a generalisation of
+    Pontrjagin duality to affine algebraic groups.
+    For non-commutative groups,
+    instead of characters, i.e. 1-dimensional reps,
+    one needs all simple reps,
+    which is why the tensor category of finite reps serves as
+    the ``dual'' to the group.
+  }
+\end{prop}
+The fibers of $\HECKE^\LOC_X \to X$ are 
+the local Hecke correspondences $\HECKE^\LOC_x$ at each point $x \in X(k)$,
+\begin{cd}
+	{\HECKE^\LOC_X} & {\HECKE^\LOC_x} & {\HECKE^\LOC} \\
+	X & \PT
+	\arrow[from=1-1, to=2-1]
+	\arrow["x"{description}, from=2-2, to=2-1]
+	\arrow[from=1-2, to=1-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=-90}, draw=none, from=1-2, to=2-1]
+	\arrow["\simeq"{description}, draw=none, from=1-2, to=1-3]
+	\arrow["{\text{choice of $\bC\bbrkt{t} \simeq \cO^\wedge_x$}}"{description}, shift left=5, draw=none, from=1-2, to=1-3]
+\end{cd}
+and given a choice of uniformizer at $x$, 
+we have $\SPH_G \simeq \SPH_{G,x}$ as tensor categories.
+We take on faith that this idea allows one to
+take $\cS \in \SPH_G$ and extend it across $\HECKE^\LOC$ in the $X$-direction,
+\footnote{
+  An account of this is given in \cite[Section 4.2]{Gomez}.
+  However, it is somewhat unsatisfactory because the choice of a point 
+  $x \in X(k)$ is used whereas the global Hecke action
+  doesn't mention any point in particular.
+  A fix should be 
+  $\HECKE^\LOC_X \simeq X^\wedge \times^{\AUT D^\wedge} \HECKE^\LOC$
+  where $X^\wedge$ is the moduli space of formal parameters of $X$
+  and $\AUT D^\wedge$ is the pro-algebraic group of
+  automorphisms of the formal disk preserving $0$.
+}
+giving a functor 
+\begin{align*}
+  \SPH_G &\to \SPH_{G,X} \\
+  \cS &\mapsto \tilde{\cS}
+\end{align*}
+This gives us \emph{two} actions of $\SPH_G \simeq \REP_k G^L$
+on $D\MOD(\BUN_G)$.
+\begin{enumerate}
+  \item On the automorphic side : 
+  we let $\SPH_G$ act through all points at once via $\SPH_{G,X}$
+  \begin{align*}
+    \SPH_{G} \times D\MOD(\BUN_G) \to D\MOD(X \times \BUN_G) \\
+    \cS , \cF \mapsto H(\tilde{\cS} , \cF)
+  \end{align*}
+  \item On the Galois side :
+  given a $G^L$ local system $\si$ on $X$,
+  we can pullback representations of $G^L$ along $\si$ : 
+  \begin{cd}
+    {X_\DR} & {BG^L} & \rightsquigarrow & {D\MOD(X)} & {\REP_k G^L}
+    \arrow["{\si^*}"', from=1-5, to=1-4]
+    \arrow["\si"', from=1-1, to=1-2]
+  \end{cd}
+  This sends a representation $V$ to the associated bundle $V_\si$
+  which has a connection via $\si$.
+  So we have the action : 
+  \begin{align*}
+    \REP_k G^L \times D\MOD(\BUN_G) &\to D\MOD(X \times \BUN_G) \\
+    V , \cF &\mapsto V_\si \boxtimes \cF
+  \end{align*}
+\end{enumerate}
+Asking for these two actions to coincide is (roughly) the definition
+of a Hecke eigensheaf.
+\begin{dfn}
+  
+  Let $\si \in \LOCSYS_{G^L} X (k)$ be a $G^L$ local system on $X$.
+  Then a \emph{Hecke eigensheaf with eigenvalue $\si$} is a
+  $\cF \in D\MOD(\BUN_G)$ equipped with isomorphisms
+  for each $V \in \REP_k G^L$,\footnote{
+    Technically, there are more conditions to
+    make the action ``agree''.
+    See \cite[Section 4.3]{Gomez}.
+  }
+  \[
+    H(\tilde{\cS_V} , \cF) \simeq V_\si \boxtimes \cF
+  \] 
+\end{dfn}
+
+\end{document}

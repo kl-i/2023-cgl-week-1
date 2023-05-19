@@ -1,0 +1,119 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+I begin by giving an impression of the Galois side.
+Let $G$ be a reductive group over $k$
+and let $G^L$ denote the Langlands dual.
+\footnote{
+  Because we are working with $k = \bC$,
+  $G^L$ is also over $k$ with root datum
+  transpose to that of $G$.
+}
+
+In geometric Langlands,
+the $L$-parameters will be group morphisms $\pi_1(X,x) \to G^L$.
+The definition of the Galois side is as follows.
+\begin{dfn}[Galois side]
+  
+  The \emph{stack of $G^L$ local systems on $X$} is 
+  defined as \[
+    \LOCSYS_{G^L} := \HOM(X_\DR , BG^L)
+  \]
+\end{dfn}
+Let me give some comments on what this has to do with morphisms 
+$\pi_1(X,x) \to G^L$.
+\begin{enumerate}
+  \item (over de Rham space = connection) 
+  $X_\DR$ here is the \emph{de Rham space} of $X$.
+  It is the quotient of $X$ by the ``equivalence relation''
+  \[
+    \widehat{\De} \rightrightarrows X \times X
+  \]
+  which says $(x,y) \in \widehat{\De}$ iff 
+  $x, y$ are ``\emph{infinitesimally close}''.
+  $\widehat{\De}$ is called the \emph{infinitesimal groupoid} and
+  one can show that \[
+    \COLIM_{n} \De^{(n)} \simeq \widehat{\De}
+  \]
+  where $\De^{(n)}$ is the $n$-order neighbourhood of the diagonal of $X$.
+  One can also show that pulling back along 
+  the quotient map $\pi : X \to X_\DR$ induces an equivalence
+  \begin{cd}
+    {\QCOH X_\DR} & {\QCOH^*(X , \widehat{\De})}
+    \arrow["{\pi^*}", from=1-1, to=1-2]
+    \arrow["\sim"', from=1-1, to=1-2]
+  \end{cd}
+  where the latter consists of $\cF \in \QCOH X$
+  which ``respect the equivalence relation
+  $\widehat{\De}$'' in the sense that
+  such $\cF \in \QCOH X$ are equipped with
+  isomorphisms $\tau_{x,y} : \cF_x \simeq \cF_y$
+  for any pair $(x,y)$ of infinitesimally close points
+  and that these isomorphisms needs to be
+  ``reflexive and transitive''.
+  The formal way of saying this is quasi-coherent sheaves on $X$
+  equipped with descent data w.r.t. the groupoid $\widehat{\De}$.
+  It turns out that descent data w.r.t $\widehat{\De}$ is equivalent to
+  giving a flat connection on $\cF$.
+  \cite[Theorem 0.4]{BDSeminar}
+  This gives us a definition / theorem.
+  \begin{dfn}
+    The \emph{category of $D$-modules on $X$} is defined to be 
+    \[
+      D\MOD\,X := \QCOH X_\DR
+    \]
+  \end{dfn}
+  Why is this relevant? 
+  It's relevant because over $\bC$ 
+  there are three equivalent ways of thinking about
+  local systems : 
+  \begin{cd}
+    {\begin{matrix} \text{(finite) representations of} \\
+      \text{fundamental group(oid) of $X$}\end{matrix}} 
+    && {\begin{matrix}\text{locally const} \\
+       \text{(finite rank) sheaves on $X$}\end{matrix}} \\
+    & {\begin{matrix} \text{vector bundles on $X$} \\ 
+      \text{equipped with flat connection} \end{matrix}}
+    \arrow["\sim"{description}, from=1-1, to=1-3]
+    \arrow["\sim"{description}, from=1-1, to=2-2]
+    \arrow["\sim"{description}, from=1-3, to=2-2]
+  \end{cd}
+  So this tells us that a morphism $\pi_1(X,x) \to G^L$
+  can be thought of as a $G^L$ bundle on $X$ equipped with a connection.
+  Using the de Rham space, 
+  this is precisely a $G^L$ bundle over $X_\DR$.
+  which brings me to the second comment.
+
+  \item $BG^L$ here is the \emph{classifying stack of $G^L$ bundles}.
+  \footnote{
+    If anyone asks : 
+    give intuition of (fpqc) stack quotient.
+  }
+  It does what you expect it to do : 
+  a map $S \to BG^L$ from a scheme $S$ is precisely a diagram
+  of the form 
+  \begin{cd}
+    P & {\PT} \\
+    {S}
+    \arrow["{\text{$G^L$ bundle}}"', from=1-1, to=2-1]
+    \arrow["{\text{$G^L$ equiv}}", from=1-1, to=1-2]
+  \end{cd}
+  Unfortunately, 
+  we're short on time for a good motivation for stacks.
+  One thing we need to know is :
+  there is a point $\pi : \PT \to BG^L$ corresponding to
+  the trivial $G^L$ bundle on $\PT$ and pullback of quasi-coherent sheaves
+  along $\pi^*$ induces 
+  \[
+    \pi^* : \QCOH BG^L \map{\sim}{} \REP_k G^L
+  \]
+
+  \item (Technical remark. Only mention if anyone asks.)
+  The $\HOM$ here is internal hom in $\PSTK_k$,
+  the $\infty$-category of prestacks over $k$.
+  This is the correct setting which reconciles the two
+  conflicting goals : taking quotients and wanting descent.
+  
+\end{enumerate}
+
+\end{document}

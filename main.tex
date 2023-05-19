@@ -1,0 +1,170 @@
+\documentclass{article}
+\input{preamble.tex}
+
+\addbibresource{mybib.bib}
+
+\begin{document}
+
+\title{The ``Galois to automorphic'' direction of 
+  categorical geometric Langlands
+}
+
+\author{Ken Lee}
+\date{Spring 2023}
+\maketitle
+
+\subfile{abstract.tex}
+
+\tableofcontents
+
+% Goals :
+% \begin{enumerate}
+%   \item one hour talk (probably max 10 pages)
+%   \item the statement of (a version of)
+%   the two side of categorical geometric Langlands
+%   \item ``Hecke paradigm'' : BB localisation as a way of
+%   giving D-modules on $\BUN_G$ from representations of
+%   affine Kac--Moody Lie algebra at critical level.
+%   \item Advice from Ruben: 
+%   nothing beats doing maths by yourself, by hand.
+%   As soon as you try to do something with details,
+%   people tend to fall asleep.
+%   I have experienced this.
+%   E.g. Kahzdan's talk.
+% \end{enumerate}
+
+% \section{Geometric? Categorical? (5min)}
+
+In a nutshell :
+\begin{itemize}
+  \item \emph{geometric} means instead of a number field $F$
+  we have the field of rational functions $K := K(X)$ of some
+  smooth, projective curve over some base field $k$,
+  which we will assume to be $\bC$ in this talk.
+  \item \emph{categorical} means that the focus is not on
+  cusp forms but instead their categorification as sheaves on $\BUN_G$.
+\end{itemize}
+
+% Here's the setup :
+% \begin{itemize}
+%   \item We work over a fixed base field $k$.
+%   ``Schemes'' will refer to schemes over $k$.
+%   \item Fix $G$ a reductive group over $k$ and $G^L$ denote 
+%   its Langlands dual.
+%   \item We fix $X$ a smooth projective curve over a field $k$.
+%   \item $K := K(X)$ refers to the field of rational functions of $X$.
+%   \item There is an equivalence between the following three :
+%   \begin{enumerate}
+%     \item closed points $x \in X$
+%     \item valuation rings inside $K$.
+%     They turn out to be all discrete due to smoothness of $X$
+%     \item places of $X$.
+%     They are all non-archimedean and discrete.
+%   \end{enumerate}
+%   For closed points $x \in X$, 
+%   \begin{itemize}
+%     \item $v_x$ denotes to place of $K$ associated to $x$.
+%     For $f \in K$, $v_x(f)$ is the order of $f$ at $x$.
+%     \item $\cO_x \subs K$ denotes the discrete valuation ring consisting of
+%     $f$ with no pole at $x$.
+%     \item $\mathfrak{m}_x \subs \cO_x$ is the maximal ideal of
+%     $f$ vanishing at $x$.
+%     \item $\cO^\wedge_x := \LIM_{n \in \bN} \cO_x / \mathfrak{m}_x^{n+1}$
+%     denotes the completion of $\cO_x$ w.r.t. $\mathfrak{m}_x$.
+%     We call $D_x := \SPEC \cO^\wedge_x$ the disk around $x$.
+%     \item $D^\wedge_x := \COLIM_{n \in \bN} \SPEC \cO_x / \mathfrak{m}_x^{n+1}$ 
+%     denotes the formal disk around $x$.
+%     We have $\cO_x^\wedge \simeq \HOM(D^\wedge_x , \bA^1)$.
+%     \item $K^\wedge_x := \cO^\wedge_x \otimes_{\cO_x} K$ is 
+%     the local field at $x$.
+%     It is equivalently the completion of $K$ w.r.t. $v_x$.
+%     We call $D_x^\circ := \SPEC K^\wedge_x = D_x \setminus \set{x} $ the
+%     punctured disk around $x$.
+%   \end{itemize}
+% \end{itemize}
+
+% \section{Some foundational constructions (Ideal 15m. Actual 37m)}
+% \subfile{setup.tex}
+
+\section{Galois side}
+% \begin{itemize}
+%   \item Question : why $\mathrm{LocSys}_{G^\vee}$?
+%   Answer :
+%   $\pi_1(\eta , \bar{\eta}) := \GAL(\bar{K} / K) \to \GL_n$ replaced with
+%   $\pi_1(X , \bar{\eta}) \to \GL_n$ replaced with
+%   $\Pi_1 X \to \GL_n$ replaced with
+%   vector bundles on $X$ equipped with flat connection.
+% \end{itemize}
+\subfile{galois.tex}
+
+\section{Automorphic side}
+
+% \begin{itemize}
+%   \item Question : why $\BUN_G$? 
+%   Answer : geometric intepretation of adeles.
+%   \item Question : why $D$-modules on $\BUN_G$? 
+%   Answer : $\ell$-adic sheaves categorify functions.
+%   $D$-modules equivalent to $\ell$-adic sheaves via Riemann--Hilbert.
+% \end{itemize}
+
+\subfile{autom.tex}
+
+\section{Hecke action from automorphic side}
+
+\subfile{hecke-autom.tex}
+
+\section{Hecke action from Galois side and Hecke eigensheaves}
+
+% \begin{itemize}
+%   \item Question : how to make sense of sheaves on $\BUN_G$ having eigenvalues
+%   in a $G^\vee$ local system?
+%   Answer : make analogy with modules over Hecke algebra.
+%   $D\MOD(\BUN_G)$ is module over $\REP G^\vee$.
+%   STILL DONT KNOW WITH CONFIDENCE
+%   (See \cite[Section 5.2]{BD}?)
+%   \item Question : how does $\REP G^\vee$ act on $D\MOD(\BUN_G)$?
+%   Answer : geometric Satake and integral transform across Hecke stack
+%   \footnote{Reference for twisted geometric Satake?}
+%   \footnote{Mention aesthetics point : geometric Satake gives a
+%   classification-free construction of $G^\vee$.}
+%   \item Question : so what is a Hecke eigensheaf?
+%   Answer : write in.
+%   \item Question : what is the statement of categorical geometric Langlands?
+%   Answer : I know it's 
+%   \[
+%     \QCOH(\mathrm{LocSys}_{G^\vee}) \simeq D\MOD(\BUN_G)
+%   \]
+%   but idk where the Hecke eigensheaves ``condition'' went.
+% \end{itemize}
+
+\subfile{eigensheaf.tex}
+
+% \section{How to make Hecke Eigensheaves? (10min)}
+
+% Main question : given a $G^\vee$ local system $E$ on $X$,
+% how to make a Hecke eigensheaf $\cF$ on $X$ with eigenvalue $E$?
+
+% \begin{itemize}
+%   \item table of Hecke paradigm / BB localisation comparing
+%   classical case and infinite dim case
+%   \item Localisation functor 
+%   \[ 
+%     (\mathfrak{g}\otimes K^\wedge_x , G(\cO^\wedge_x))\MOD \to
+%     D\MOD(\BUN_G)
+%   \]
+% \end{itemize}
+% \begin{itemize}
+%   \item Question : what is the deal with the quantized Hitchin system?
+%   Answer : NOT CLEAR. I know $\HITCH$ is commutative subalgebra of
+%   $\Ga(\BUN_G , D^\CRIT)$ and that $\SPEC \HITCH$ closed embeds into 
+%   $\LOCSYS_{G^\vee}$ but how does this line up with localisation?
+
+%   TODO : reread 2nd overview by Gaitsgory and intro in \cite{FG-06}.
+%   \item Question : how does $\SPEC \HITCH$ relate to local system?
+%   Answer : Feigin--Frenkel isomorphism.
+%   Analogous to Harish-Chandra isomorphism
+% \end{itemize}
+
+\printbibliography
+
+\end{document}

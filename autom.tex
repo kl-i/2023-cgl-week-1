@@ -1,0 +1,162 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+Now I describe the automorphic side.
+\begin{dfn}[Automorphic side]
+  
+  The \emph{stack of $G$ bundles on $X$} is defined as 
+  \[
+    \BUN_G X := \HOM(X , BG)
+  \]
+  The automorphic side the categorical geometric Langlands 
+  is defined as the category 
+  \[
+    D\MOD(\BUN_G X)
+  \]
+  I might only write $\BUN_G$ sometimes.
+\end{dfn}
+The above is the categorical geometric analogue of the
+space of (unramified) cusp forms.
+Here are some questions you might have :
+\begin{enumerate}
+  \item Question : Why $\BUN_G X$? 
+  Short answer : geometric interpretation of double coset space of adeles.
+  Long answer : 
+  By ``geometric interpretation'' I mean 
+  that the path connected components of the groupoid $\BUN_G(k)$
+  gives back the double coset space of adeles.
+  First, let me show you why double cosets appear by 
+  looking at the example of $G = \GL_1$ and $X = \bP^1$.
+  Then $\pi_0 \BUN_G X(k)$ is the set of isomorphism classes of
+  $\GL_1$ bundles on $\bP^1$, 
+  equivalently line bundles on $\bP^1$.
+  There's an easy classification :
+  take the standard cover $U_0 + U_1 \to \bP^1$ with $U_i = \bA^1$.
+  Then fpqc descent says that a 
+  a line bundle $L$ on $\bP^1$
+  is equivalently a pair of line bundles $L_i$ on $U_i$ 
+  equipped with an isomorphism $\al : L_0 \to E_1$ over $U_0 \cap U_1$.
+  But vector bundles on $\bA^1$ can all be trivialised,
+  giving us an isomorphism of descent data : 
+  \begin{cd}
+	L & \leftrightsquigarrow 
+  & {L_0} & {\res{L_0}{U_{01}}} & {\res{L_1}{U_{01}}} & {L_1} \\
+	&& {\cO_{U_0}} & {\cO_{U_{01}}} & {\cO_{U_{01}}} & {\cO_{U_1}}
+	\arrow[from=1-4, to=1-3]
+	\arrow[from=1-5, to=1-6]
+	\arrow["\alpha", from=1-4, to=1-5]
+	\arrow["{s_0}"', from=2-3, to=1-3]
+	\arrow["{s_1}"', from=2-6, to=1-6]
+	\arrow[from=2-4, to=2-3]
+	\arrow[from=2-5, to=2-6]
+	\arrow["{s_0}"', from=2-4, to=1-4]
+	\arrow["{s_1}"', from=2-5, to=1-5]
+	\arrow["{s_1^{-1}\alpha s_0}"', from=2-4, to=2-5]
+	\arrow[from=2-3, to=1-3]
+  \end{cd}
+  So each line bundle $L$ on $\bP^1$ with trivialisations 
+  $s_i$ on $U_i$
+  is determined up to isomorphism by
+  the element $s_1^{-1} \alpha s_0 \in \GL_n(U_{01})$.
+  In other words we have the isomorphism below : 
+\begin{cd}
+	{\pi_0\set{\text{line bundles on $\bP^1$ with $s_0, s_1$}}} & {\GL_1(U_{01})} \\
+	{\pi_0(\BUN_{\GL_1}\bP^1)(k)} & {GL_1(U_0)\backslash GL_1(U_{01}) / \GL_1(U_1)}
+	\arrow["\sim"', from=1-2, to=1-1]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow["\sim", from=2-2, to=2-1]
+\end{cd}
+  The set of trivialisations $s_i$ form torsors for $\GL_1(U_i)$ respectively.
+  Thus, forgetting the trivialisations gives us the bottom bijection.
+  
+  Now we show how adeles appear.
+  \begin{enumerate}
+    \item For a fixed open $U$ of the curve.
+    The idea is to replace the cover $U_0, U_1$ by
+    $U, \coprod_{x \in X} D_x$ where $D_x$ is the disk around $x \in X(k)$.
+    \footnote{
+      If anyone asks,
+      this works by fpqc descent and the fact that $X$ is finite type.
+    }
+    One has
+    \begin{align*}
+      &\set{\text{isomorphism class of line bundles on $X$
+      which trivialise on $U$}} \\
+      \simeq \,
+      & \GL_1(U) \backslash 
+      \GL_1(U \cap \coprod_{x \in X} D_x) 
+      / \GL_1(\coprod_{x \in X} D_x) \\
+      \simeq\,
+      & \GL_1(U) \backslash 
+      \GL_1 (\prod_{x \in U} \cO_x^\wedge \times \prod_{x \notin U} K^\wedge_x)
+      /\GL_1( \prod_{x \in X} \cO_x^\wedge)
+    \end{align*}
+    \item Now take the union across all opens $U$.
+    $\GL_1(U)$ becomes $\GL_1(K)$ \footnote{
+      $\GL_1$ separated so maps $\GL_1(U) \subs \GL_1(V)$ for $V \subs U$
+    },
+    middle term becomes $\GL_1(\bA)$
+    and the right hand term $\GL_1(\cO)$
+    We obtain what's called the \emph{Weil uniformisation}.
+    \[
+      \pi_0 \BUN_{\GL_1} X (k) \simeq
+      \GL_1(K) \backslash \GL_1(\bA) / \GL_1(\bO_X)
+    \]
+  \end{enumerate}
+  So we see that $\BUN_G$ geometricises the adelic double coset.
+  \item Question : why $D$-modules on $\BUN_G X$? 
+  Short answer : 
+  when $k = \bF_q$, 
+  perverse sheaves categorify functions
+  % $\overline{\bQ_\ell}$-valued functions
+  and when $k = \bC$, 
+  $D$-modules (with certain conditions) 
+  equivalent to perverse sheaves via Riemann--Hilbert correspondence.
+
+  Long answer :
+  I've already touched on the Riemann--Hilbert correspondence.
+  It is a generalisation of the equivalence between
+  locally constant sheaves and
+  vector bundles equipped with flat connections.
+  So let me describe how perverse sheaves categorify functions.
+
+  The setting is $k = \bF_q$ and for simplicity again
+  let $G = \GL_1$.
+  We fix an algebraic closure $\bF_q \subs \overline{\bF}$.
+  Let $\cF \in \PERV(\BUN_G , \overline{\bQ_\ell})$.
+  I won't tell you what this is, but all you need to know is
+  that given a $x : \SPEC \bF_q \to \BUN_G$,
+  we can get a $\overline{\bQ_\ell}$-vector space $\cF_{\overline{x}}$
+  by pulling back.
+  \begin{cd}
+    {\cF_{\overline{x}}} \arrow[loop left, "{\FROB^g_x}"] & {\cF_{x}} & \cF \\
+    {\overline{x}} \arrow[loop left, "{\FROB^g_x}"] & x & {\BUN_1}
+    \arrow[from=2-2, to=2-3]
+    \arrow[from=2-1, to=2-2]
+    \arrow[squiggly, from=1-3, to=1-2]
+    \arrow[squiggly, from=1-2, to=1-1]
+  \end{cd}
+  Intuitively, the Galois group $\GAL(\bar{\bF_q}/\bF_q)$ acts
+  on $\overline{x} \to x$,
+  and thus also on $\cF_{\bar{x}}$.
+  We can then take the trace of the (geometric) Frobenius.
+  All together, we obtain a ring map
+  \begin{align*}
+    K(\PERV(\BUN_1 , \overline{\bQ_\ell})) 
+    &\to \overline{\bQ_\ell}\sqbrkt{\GL_1(K) \backslash \GL_1 \bA / \GL_1 \cO} \\
+    \cF & \mapsto (x \mapsto \mathrm{Tr}({\FROB}^g_x , \cF_{\overline{x}}))
+  \end{align*}
+  This is roughly what people mean by 
+  ``perverse sheaves categorify functions''.
+  \footnote{
+    A precise statement can be found in \cite[Chapter III, Theorem 12.1]{KW}.
+  }
+  In \cite{D-83}, Drinfeld's proof of geometric Langlands for
+  $\GL_2$ constructs Hecke eigenfunctions 
+  by first constructing the perverse sheaf,
+  then takes trace of Frobenius.
+
+\end{enumerate}
+
+\end{document}
